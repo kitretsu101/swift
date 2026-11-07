@@ -1,0 +1,99 @@
+
+import SwiftUI
+
+struct ContentView: View {
+
+    // MARK: - State Variable
+    @State private var count = 0
+
+    // MARK: - Computed Property
+    var scoreMessage: String {
+        if count >= 10 {
+            return "Congratulations! 🎉"
+        } else if count > 0 {
+            return "Keep Going! 💪"
+        } else {
+            return "Start Increasing Your Score!"
+        }
+    }
+
+    var body: some View {
+
+        VStack(spacing: 25) {
+
+            // App Title
+            Text("Score Manager")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+
+            Text("Keep track of your score!")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+
+            // Score Display
+            VStack(spacing: 10) {
+
+                Text("CURRENT SCORE")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+
+                Text("\(count)")
+                    .font(.system(size: 65))
+                    .fontWeight(.bold)
+
+                Text(scoreMessage)
+                    .font(.headline)
+                    .foregroundColor(
+                        count >= 10 ? .green : .blue
+                    )
+            }
+
+            // Increase and Decrease Buttons
+            HStack(spacing: 20) {
+
+                Button(action: {
+                    if count > 0 {
+                        count -= 1
+                    }
+                }) {
+                    Image(systemName: "minus")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .frame(width: 70, height: 60)
+                        .background(Color.red)
+                        .cornerRadius(15)
+                }
+
+                Button(action: {
+                    count += 1
+                }) {
+                    Image(systemName: "plus")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .frame(width: 70, height: 60)
+                        .background(Color.green)
+                        .cornerRadius(15)
+                }
+            }
+
+            // Reset Button
+            Button(action: {
+                count = 0
+            }) {
+                Text("Reset Score")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(12)
+            }
+
+        }
+        .padding(25)
+    }
+}
+
+#Preview {
+    ContentView()
+}
